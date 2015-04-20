@@ -1,13 +1,17 @@
-
-#' 
-#'@import 
-#'@export
-#'@example
-#'utils::data(anorexia, package = "MASS")
-#'anorex.1 <- glm(Postwt ~ Prewt + Treat + offset(Prewt), family = gaussian, data = anorexia)
-#'kfold_validation(anorex.1, 10)
+devtools::use_package("MASS")
+#' perform kfold validation for a model object
+#'
+#' @details perform kfold validation for a model object
+#' @param object a model object
+#' @param k define the k-fold validation
+#' @examples
+#' utils::data(anorexia, package = "MASS")
+#' anorex.1 <- glm(Postwt ~ Prewt + Treat + offset(Prewt), family = gaussian, data = anorexia)
+#' kfold_validation(anorex.1, 10)
+#' @export
 kfold_validation <- function(object,...) UseMethod("kfold_validation")
 
+#' @export
 kfold_validation.glm<-function(object, k){
   nr=eval(call("dim",  object$call$data), envir=parent.frame())[1]
   group_index = split(1:nr, cut(1:nr, k))
