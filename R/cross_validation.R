@@ -1,4 +1,3 @@
-devtools::use_package("MASS")
 #' perform kfold validation for a model object
 #'
 #' @details perform kfold validation for a model object
