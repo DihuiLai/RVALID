@@ -20,7 +20,7 @@ kfold_validation.glm<-function(object, k){
     data_train = eval(call("[", object$call$data), envir = parent.frame())[train_index, ]
     #print(dim(data_train))
     data_test = eval(call("[", object$call$data), envir = parent.frame())[test_index, ]
-    train_model = eval(call("glm",object$call$formula, data=data_train, family=anorex.1$call$family))
+    train_model = eval(call("glm",object$call$formula, data=data_train, family=object$call$family))
     valid_prediction = c(valid_prediction, predict(train_model, data_test, type="response"))     
   }
   return(valid_prediction)
