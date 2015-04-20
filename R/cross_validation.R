@@ -9,7 +9,7 @@
 kfold_validation <- function(object,...) UseMethod("kfold_validation")
 
 kfold_validation.glm<-function(object, k){
-  nr=eval(call("dim",  anorex.1$call$data), envir=parent.frame())[1]
+  nr=eval(call("dim",  object$call$data), envir=parent.frame())[1]
   group_index = split(1:nr, cut(1:nr, k))
   valid_prediction=NULL
   for (i in seq(1, length(group_index))){
