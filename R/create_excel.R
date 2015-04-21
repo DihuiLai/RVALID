@@ -14,9 +14,13 @@ create_excel.glm<-function(object, filename="glmmodel.xlsx"){
   print(varlist)
   for (variables in varlist){
     vv=eval(call("model.frame", as.formula(paste("~", variables, sep="")), object$call$data), envir=parent.frame())
-    vv=unique(vv[[variables]])
-    vv=vv[order(vv)]      
-
+    if(is.factor(vv[[variables]])){
+      vv=unique(vv[[variables]])
+      vv=paste(variables, vv[order(vv)], sep="")
+    }else{
+      vv=range(vv[[variables]])
+      vv=vv[order(vv)]
+    }    
     writeData(wb, sheet = "Sheet1", variables, startRow=sr, startCol=sc)
     writeData(wb, sheet = "Sheet1", vv, startRow=sr+1, startCol=sc)
     sc=sc+1    
@@ -29,14 +33,14 @@ create_excel.glm<-function(object, filename="glmmodel.xlsx"){
   sr = 1
   sc = 1
   for (variables in varlist){
+    
     if(is.factor(eval(call("model.frame", as.formula(paste("~", variables, sep="")), object$call$data), envir=parent.frame())[[1]])){
       writeData(wb, sheet="Estimation", variables, startRow=sr, startCol=sc)
       writeData(wb, sheet="Estimation", paste("=VLOOKUP(B",sr, ",", ExcelCoeffTable, ",2, FALSE)", sep=""), startRow=sr, startCol=sc+2)      
     }else{
       writeData(wb, sheet="Estimation", variables, startRow=sr, startCol=sc)
-      writeData(wb, sheet="Estimation", paste("=", "B", sc+1, "*VLOOKUP(A",sr, ",", ExcelCoeffTable, ",2, FALSE)", sep=""), startRow=sr, startCol=sc+2)  
-    }
-      
+      writeData(wb, sheet="Estimation", paste("=", "B", sr, "*VLOOKUP(A",sr, ",", ExcelCoeffTable, ",2, FALSE)", sep=""), startRow=sr, startCol=sc+2)  
+    } 
     sr=sr+1  
     
   }
