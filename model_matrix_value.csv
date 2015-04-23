@@ -1,0 +1,8 @@
+"","x"
+"1","=VLOOKUP(""Prewt"",F2:E5, 2)"
+"2","=if(VLOOKUP(""Treat"", F2:E5,2)=""CBT"", 1, 0)"
+"3","=if(VLOOKUP(""Treat"", F2:E5,2)=""Cont"", 1, 0)"
+"4","=if(VLOOKUP(""Treat"", F2:E5,2)=""FT"", 1, 0)"
+"5","=if(VLOOKUP(""Treat"", F2:E5,2)=""CBT"", 1, 0)*VLOOKUP(""Prewt"",F2:E5, 2)"
+"6","=if(VLOOKUP(""Treat"", F2:E5,2)=""Cont"", 1, 0)*VLOOKUP(""Prewt"",F2:E5, 2)"
+"7","=if(VLOOKUP(""Treat"", F2:E5,2)=""FT"", 1, 0)*VLOOKUP(""Prewt"",F2:E5, 2)"

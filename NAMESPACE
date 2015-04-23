@@ -2,6 +2,9 @@
 
 S3method(create_excel,glm)
 S3method(kfold_validation,glm)
+S3method(md_reform,glm)
 export(create_excel)
+export(create_vlookup_text)
 export(kfold_validation)
+export(md_reform)
 import(openxlsx)
